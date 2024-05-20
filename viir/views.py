@@ -13,7 +13,7 @@ import os
 import numpy as np
 from PIL import Image, ImageTk
 from tkinter import Tk, Button, filedialog, Label
-from tensorflow.keras.models import load_model
+import tensorflow as tf
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 # Create your views here.
@@ -25,15 +25,22 @@ def load_and_preprocess_image(image_path, target_size=(224, 224)):
     img_array = img_array.astype('float32') / 255.
     return img_array
 
+interpreter = tf.lite.Interpreter(model_path=r"viir\viir.tflite")
+interpreter.allocate_tensors()
+
 # Function to predict the class of an image
-def predict_image_class(model, image_path, class_indices):
+def predict_image_class(image_path, class_indices):
     preprocessed_img = load_and_preprocess_image(image_path)
-    predictions = model.predict(preprocessed_img)
-    predicted_class_index = np.argmax(predictions, axis=1)[0]
+    input_details = interpreter.get_input_details()
+    output_details = interpreter.get_output_details()
+
+    interpreter.set_tensor(input_details[0]['index'], preprocessed_img)
+    interpreter.invoke()
+    output_data = interpreter.get_tensor(output_details[0]['index'])
+    
+    predicted_class_index = np.argmax(output_data, axis=1)[0]
     predicted_class_name = class_indices[predicted_class_index]
     return predicted_class_name
-model = load_model("viir/model1.h5")
-
 class_indices = {0: 'Apple___Apple_scab',
  1: 'Apple___Black_rot',
  2: 'Apple___Cedar_apple_rust',
@@ -83,7 +90,7 @@ def home(request):
             form.save()
             address="media/"+request.FILES['img'].name
             print(address)
-            result=predict_image_class(model,address,class_indices)
+            result=predict_image_class(address,class_indices)
             return JsonResponse({'result': result})
     form = Imageaform()
     return (render(request,"viir/home.html",{"form":form,"result":result}))
