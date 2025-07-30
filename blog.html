@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BlogSpace - Blog Post</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="logo">
+                    <i class="fas fa-blog"></i>
+                    <span>BlogSpace</span>
+                </div>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="index.html" class="nav-link">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="editor.html" class="nav-link">Write Blog</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">About</a>
+                    </li>
+                </ul>
+                <div class="hamburger">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="main-content">
+        <article class="blog-post" id="blogPost">
+            <div class="container">
+                <div class="blog-header">
+                    <div class="blog-meta">
+                        <span class="category" id="blogCategory">Technology</span>
+                        <span class="date" id="blogDate">December 15, 2024</span>
+                    </div>
+                    <h1 class="blog-title" id="blogTitle">Loading...</h1>
+                    <div class="author-info">
+                        <img src="https://via.placeholder.com/40" alt="Author" class="author-avatar" id="authorAvatar">
+                        <div class="author-details">
+                            <span class="author-name" id="authorName">Loading...</span>
+                            <span class="read-time" id="readTime">5 min read</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="blog-image">
+                    <img id="blogImage" src="https://via.placeholder.com/800x400" alt="Blog Image">
+                </div>
+
+                <div class="blog-content" id="blogContent">
+                    <p>Loading blog content...</p>
+                </div>
+
+                <div class="blog-actions">
+                    <div class="action-buttons">
+                        <button class="action-btn like-btn" id="likeBtn">
+                            <i class="far fa-heart"></i>
+                            <span class="count" id="likeCount">0</span>
+                        </button>
+                        <button class="action-btn comment-btn" onclick="scrollToComments()">
+                            <i class="far fa-comment"></i>
+                            <span class="count" id="commentCount">0</span>
+                        </button>
+                        <button class="action-btn share-btn" onclick="shareBlog()">
+                            <i class="fas fa-share"></i>
+                            Share
+                        </button>
+                    </div>
+                    <div class="edit-actions">
+                        <a href="editor.html" class="edit-btn" id="editBtn">
+                            <i class="fas fa-edit"></i>
+                            Edit
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <section class="comments-section" id="commentsSection">
+            <div class="container">
+                <h3>Comments</h3>
+                
+                <div class="comment-form">
+                    <div class="user-avatar">
+                        <img src="https://via.placeholder.com/40" alt="Your Avatar">
+                    </div>
+                    <div class="comment-input-container">
+                        <textarea 
+                            id="commentInput" 
+                            placeholder="Write a comment..." 
+                            rows="3"
+                        ></textarea>
+                        <div class="comment-actions">
+                            <button class="cancel-btn" onclick="clearComment()">Cancel</button>
+                            <button class="submit-btn" onclick="submitComment()">Comment</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="comments-list" id="commentsList">
+                    <!-- Comments will be dynamically generated here -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 BlogSpace. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="blog.js"></script>
+</body>
+</html>
